@@ -38,14 +38,14 @@ class game
              if(gframe[frameNumber].getType()==strike){
                 cout<<"strike:"<<frameNumber<<endl;
                     totalScore+=strikeBonus(frameNumber);
-                }
+     	      }
 
                         
             else  if (gframe[frameNumber].getType()==spare){
                 cout<<"spare:"<<frameNumber<<endl;
                 totalScore+=spareBonus(frameNumber);
-            }
-		}
+             }
+	}
       
         void error(){
         	cout<<"error"<<endl;
@@ -66,17 +66,18 @@ class game
         } 
             
   public:    
-  	     game(int fc=10){
-        	frameCount=fc;
+  	 game(int fc=10){
+         	frameCount=fc;
         	rollNumber=0;
-            frameNumber=0;
-            totalScore=0;
-        }
+                frameNumber=0;
+                totalScore=0;
+         }
+	
           int getfinalScore(){
             totalScore=0;
             for(int i=0;i<frameCount;i++){
-            	if(i<normalFrames)
-                  {
+            	if(i<normalFrames){
+			
                    computeBonus(i);
                    totalScore+=gframe[i].getFrameScore();
                }
@@ -86,7 +87,7 @@ class game
         };
         
 
-		 bool enterScore(int s){
+	bool enterScore(int s){
         	cout<<"frame#"<<frameNumber<<"roll#"<<rollNumber<<"score="<<s<<endl;
         	gframe[frameNumber].froll[rollNumber].setScore(s);
         	gframe[frameNumber].checkFrameType();
@@ -94,28 +95,28 @@ class game
         	if(gframe[frameNumber].getType()==strike){
         		gframe[frameNumber].setRollCount(1);
         		 gotoNextFrame();
-			}
-			else if(rollNumber==lastRoll){
-				if(gframe[frameNumber].getFrameScore()>allpins)
+		}
+		else if(rollNumber==lastRoll){
+			if(gframe[frameNumber].getFrameScore()>allpins)
 				error();
 					
 			gotoNextFrame();
-			}
-			else gotoNextRoll(); 
-			if(s>allpins){
+		}
+		else gotoNextRoll(); 
+		if(s>allpins){
 			error();
 			return false;
-			}
+		}
 		    return true;
         }
         
-		  void addedFrame(int R1=0,int R2=0){
+	 void addedFrame(int R1=0,int R2=0){
         	int sum;
         	sum=0;
                 if (gframe[normalFrames-1].getType()==strike){
-                if(R1==allpins)
-                	frameCount+=2;
-                else frameCount++;
+               		 if(R1==allpins)
+                	       frameCount+=2;
+               		 else frameCount++;
                 
                         cout<<"your first reward"<<endl; 
                        	enterScore(R1);
@@ -125,8 +126,8 @@ class game
                 }
                 else if(gframe[normalFrames-1].getType()==spare){
                 	frameCount++;
-                    cout<<"your reward.."<<endl;
-                    enterScore(R1);
+                    	cout<<"your reward.."<<endl;
+                        enterScore(R1);
         
                 }
                 
